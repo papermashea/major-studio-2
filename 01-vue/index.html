@@ -20,6 +20,9 @@
         stroke: black;
         stroke-width: 1px;
       }
+      .bad-guess {
+        color: red;
+      }
     </style>
   </head>
   <body>
@@ -29,8 +32,11 @@
         <button @click="resetGame">New game</button>
       </div>
       <div>
-        <input type="text" v-model="currentGuess" />
+        <input type="text" v-model="currentGuess" @input="clearBadGuess" />
         <button @click="addGuess">Add guess</button>
+      </div>
+      <div>
+        <span v-if="badGuess.show" class="bad-guess">bad guess: {{ badGuess.reason }}!</span>
       </div>
       <svg :height="svgHeight" :width="svgWidth">
         <g v-for="(row, rowIndex) in gridData">

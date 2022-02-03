@@ -15,17 +15,39 @@ const App = {
       guesses: [],
       currentGuess: "",
       tileDimension: 50,
+      badGuess: {
+        show: false,
+        reason: ''
+      }
     };
   },
   methods: {
     addGuess() {
-      const newGuess = this.currentGuess;
-      this.guesses.push(newGuess.toUpperCase());
-      this.currentGuess = "";
+      const newGuess = this.currentGuess.toUpperCase();
+      const indexOfNewGuess = this.guesses.indexOf(newGuess)
+      if (newGuess.length < 5) {
+        this.badGuess.show = true;
+        this.badGuess.reason = 'guess too short'
+      } else if (newGuess.length > 5) {
+        this.badGuess.show = true;
+        this.badGuess.reason = 'guess too long'
+      } else if (indexOfNewGuess !== -1) {
+        this.badGuess.show = true;
+        this.badGuess.reason = 'already guessed'
+      } else {
+        this.guesses.push(newGuess);
+        this.currentGuess = ""; 
+      }
+    },
+    clearBadGuess() {
+      if (this.badGuess.show) {
+        this.badGuess.show = false;
+      }
     },
     resetGame() {
       this.guesses = [];
       this.currentGuess = "";
+      this.clearBadGuess();
     }
   },
   computed: {
