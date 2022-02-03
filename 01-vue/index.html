@@ -26,6 +26,9 @@
     <div id="app">
       <h1>Nerdle*</h1>
       <div>
+        <button @click="resetGame">New game</button>
+      </div>
+      <div>
         <input type="text" v-model="currentGuess" />
         <button @click="addGuess">Add guess</button>
         <button @click="newGame">New game</button>

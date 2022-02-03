@@ -25,6 +25,10 @@ const App = {
       this.guesses.push(newGuess.toUpperCase());
       this.currentGuess = "";
     },
+    resetGame() {
+      this.guesses = [];
+      this.currentGuess = "";
+    }
   },
   computed: {
     gridData() {
