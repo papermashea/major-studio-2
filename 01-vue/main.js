@@ -18,7 +18,8 @@ const App = {
       badGuess: {
         show: false,
         reason: ''
-      }
+      },
+      didWin: false
     };
   },
   methods: {
@@ -38,6 +39,9 @@ const App = {
         this.guesses.push(newGuess);
         this.currentGuess = ""; 
       }
+      if (newGuess === this.target) {
+        this.didWin = true;
+      }
     },
     clearBadGuess() {
       if (this.badGuess.show) {
@@ -48,11 +52,23 @@ const App = {
       this.guesses = [];
       this.currentGuess = "";
       this.clearBadGuess();
+      this.didWin = false;
     }
   },
   computed: {
     gridData() {
-      return this.guesses.map((guess) => guess.split(""));
+      return this.guesses.map((guess) => guess.split("").map((letter, i) => {
+        let color = 'lightgrey'
+        if (this.target[i] === letter) {
+          color = 'green'
+        } else if (this.target.indexOf(letter) !== -1) {
+          color = 'orange'
+        }
+        return {
+          letter,
+          color
+        }
+      }));
     },
     svgWidth() {
       return this.tileDimension * 5;
