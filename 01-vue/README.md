@@ -10,7 +10,10 @@
 **Refresh some basics of d3.js**
 
 - how do `.domain` and `.range` work in a scale?
+  Domain is the data you're using
+  Range is what you are mapping it to
 - what is the difference between `scaleBand` and `scaleLinear`?
+  scaleBand groups axis, scaleLinear maps it linearally
 
 ### Questions to check your understanding
 
@@ -30,3 +33,4 @@
   - add a method to check the guess's letters against the target
   - change `gridData` so each cell is an object with `text` and `color` instead of a string
   - update the `rect` and `text` to accept their respective properties from the object
+  - :disabled="didWin"

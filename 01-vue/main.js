@@ -15,6 +15,8 @@ const App = {
       guesses: [],
       currentGuess: "",
       tileDimension: 50,
+      badGuess:
+        show: false
     };
   },
   methods: {

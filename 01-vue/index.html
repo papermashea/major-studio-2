@@ -28,6 +28,7 @@
       <div>
         <input type="text" v-model="currentGuess" />
         <button @click="addGuess">Add guess</button>
+        <button @click="newGame">New game</button>
       </div>
       <svg :height="svgHeight" :width="svgWidth">
         <g v-for="(row, rowIndex) in gridData">
