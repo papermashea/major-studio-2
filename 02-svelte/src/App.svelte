@@ -20,7 +20,7 @@
 			list = [
 				...list,
 				state
-			]
+			].sort()
 		} else {
 			list = [
 				...list.slice(0, stateIndex),
