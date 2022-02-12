@@ -29,11 +29,18 @@
 		}
 	}
 
+	function resetList() {
+		list = [];
+	}
+
 </script>
 
 <main>
 	<h1>How many states have you been to?</h1>
-	<p>You've been to {stateCount} {pluralize('state', stateCount)}! Click a state to add it to your list.</p>
+	<p>
+		You've been to {stateCount} {pluralize('state', stateCount)}! Click a state to add it to your list.
+		<button on:click={resetList}>Reset List</button>
+	</p>
 	<Map callback={onToggleState} list={list} />
 	<List list={list} />
 </main>
