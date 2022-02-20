@@ -15,18 +15,60 @@ const App = {
       guesses: [],
       currentGuess: "",
       tileDimension: 50,
+      badGuess: {
+        show: false,
+        reason: ''
+      },
+      didWin: false
     };
   },
   methods: {
     addGuess() {
-      const newGuess = this.currentGuess;
-      this.guesses.push(newGuess.toUpperCase());
-      this.currentGuess = "";
+      const newGuess = this.currentGuess.toUpperCase();
+      const indexOfNewGuess = this.guesses.indexOf(newGuess)
+      if (newGuess.length < 5) {
+        this.badGuess.show = true;
+        this.badGuess.reason = 'guess too short'
+      } else if (newGuess.length > 5) {
+        this.badGuess.show = true;
+        this.badGuess.reason = 'guess too long'
+      } else if (indexOfNewGuess !== -1) {
+        this.badGuess.show = true;
+        this.badGuess.reason = 'already guessed'
+      } else {
+        this.guesses.push(newGuess);
+        this.currentGuess = ""; 
+      }
+      if (newGuess === this.target) {
+        this.didWin = true;
+      }
     },
+    clearBadGuess() {
+      if (this.badGuess.show) {
+        this.badGuess.show = false;
+      }
+    },
+    resetGame() {
+      this.guesses = [];
+      this.currentGuess = "";
+      this.clearBadGuess();
+      this.didWin = false;
+    }
   },
   computed: {
     gridData() {
-      return this.guesses.map((guess) => guess.split(""));
+      return this.guesses.map((guess) => guess.split("").map((letter, i) => {
+        let color = 'lightgrey'
+        if (this.target[i] === letter) {
+          color = 'green'
+        } else if (this.target.indexOf(letter) !== -1) {
+          color = 'orange'
+        }
+        return {
+          letter,
+          color
+        }
+      }));
     },
     svgWidth() {
       return this.tileDimension * 5;

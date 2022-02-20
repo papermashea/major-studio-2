@@ -16,9 +16,11 @@
         alignment-baseline: middle;
       }
       svg rect {
-        fill: none;
         stroke: black;
         stroke-width: 1px;
+      }
+      .bad-guess {
+        color: red;
       }
     </style>
   </head>
@@ -26,8 +28,14 @@
     <div id="app">
       <h1>Nerdle*</h1>
       <div>
-        <input type="text" v-model="currentGuess" />
-        <button @click="addGuess">Add guess</button>
+        <button @click="resetGame">New game</button>
+      </div>
+      <div>
+        <input type="text" v-model="currentGuess" @input="clearBadGuess" :disabled="didWin"/>
+        <button @click="addGuess" :disabled="didWin">Add guess</button>
+      </div>
+      <div>
+        <span v-if="badGuess.show" class="bad-guess">bad guess: {{ badGuess.reason }}!</span>
       </div>
       <svg :height="svgHeight" :width="svgWidth">
         <g v-for="(row, rowIndex) in gridData">
@@ -35,9 +43,9 @@
             v-for="(cell, cellIndex) in row"
             :transform="`translate(${xScale(cellIndex)}, ${yScale(rowIndex)})`"
           >
-            <rect :height="tileDimension" :width="tileDimension"></rect>
+            <rect :height="tileDimension" :width="tileDimension" :fill="cell.color"></rect>
             <text :x="tileDimension / 2" :y="tileDimension / 2">
-              {{ cell }}
+              {{ cell.letter }}
             </text>
           </g>
         </g>
