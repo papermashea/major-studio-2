@@ -1,10 +1,22 @@
 <script>
-	export let name;
+	import { onMount } from 'svelte';
+	import BarChart from './BarChart.svelte'
+
+	const API_URL = "https://api.weather.gov/gridpoints/OKX/33,37/forecast";
+	let forecast = {
+		properties: {
+			periods: []
+		}
+	};
+	onMount(async () => {
+		const res = await fetch(API_URL);
+		forecast = await res.json();
+	});
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<h4>This week's temperature chart</h4>
+	<BarChart data={forecast.properties.periods} height={400} width={600} />
 </main>
 
 <style>
@@ -13,13 +25,6 @@
 		padding: 1em;
 		max-width: 240px;
 		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
 	}
 
 	@media (min-width: 640px) {
