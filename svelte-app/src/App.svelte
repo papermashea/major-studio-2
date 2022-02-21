@@ -1,10 +1,24 @@
 <script>
-	export let name;
+	import { onMount } from 'svelte';
+	import Forecast from './Forecast.svelte'
+
+	let data = null;
+
+	const API_URL = "https://api.weather.gov/gridpoints/OKX/33,37/forecast";
+
+	let forecast = null;
+
+	onMount(async () => {
+		const res = await fetch(API_URL);
+		forecast = await res.json();
+	});
+
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<h1>My weather app</h1>
+	<p>Forecast from <a href="https://www.weather.gov/documentation/services-web-api">US weather service</a> API.</p>
+	<Forecast periods={forecast.properties.periods} />
 </main>
 
 <style>
