@@ -15,17 +15,12 @@ const App = {
       guesses: [],
       currentGuess: "",
       tileDimension: 50,
-<<<<<<< HEAD
       badGuess:
         show: false
-=======
-      badGuess: {
-        show: false,
         reason: ''
-      }
->>>>>>> 5b33aa31 ([medium] reject a guess that is longer than 5 letters or has already been made)
+      },
+      didWin: false
     };
-  },
   methods: {
     addGuess() {
       const newGuess = this.currentGuess.toUpperCase();
@@ -43,6 +38,9 @@ const App = {
         this.guesses.push(newGuess);
         this.currentGuess = ""; 
       }
+      if (newGuess === this.target) {
+        this.didWin = true;
+      }
     },
     clearBadGuess() {
       if (this.badGuess.show) {
@@ -53,11 +51,23 @@ const App = {
       this.guesses = [];
       this.currentGuess = "";
       this.clearBadGuess();
+      this.didWin = false;
     }
   },
   computed: {
     gridData() {
-      return this.guesses.map((guess) => guess.split(""));
+      return this.guesses.map((guess) => guess.split("").map((letter, i) => {
+        let color = 'lightgrey'
+        if (this.target[i] === letter) {
+          color = 'green'
+        } else if (this.target.indexOf(letter) !== -1) {
+          color = 'orange'
+        }
+        return {
+          letter,
+          color
+        }
+      }));
     },
     svgWidth() {
       return this.tileDimension * 5;
