@@ -6,11 +6,15 @@
 
 	const API_URL = "https://api.weather.gov/gridpoints/OKX/33,37/forecast";
 
+	let isMounted = false;
+	// alternative solution: initialize `let forecast = { properties: periods: [] }`
+	// so the Forecast component gets an empty array until API data returns
 	let forecast = null;
 
 	onMount(async () => {
 		const res = await fetch(API_URL);
 		forecast = await res.json();
+		isMounted = true;
 	});
 
 </script>
@@ -18,7 +22,9 @@
 <main>
 	<h1>My weather app</h1>
 	<p>Forecast from <a href="https://www.weather.gov/documentation/services-web-api">US weather service</a> API.</p>
-	<Forecast periods={forecast.properties.periods} />
+	{#if isMounted}
+		<Forecast periods={forecast.properties.periods} />
+	{/if}
 </main>
 
 <style>

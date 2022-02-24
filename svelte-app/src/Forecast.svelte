@@ -11,7 +11,7 @@
         if (temp > 50){
             return 'cool'
         }
-        if (temp < 50) {
+        if (temp >= 32) {
             return 'cold'
         }
         if (temp < 32) {
@@ -25,7 +25,7 @@
         {#each periods as period}
             <div class={"period " + getTempClass(period.temperature)}>
                 <h5>{period.name}</h5>
-                <img src="period.icon" alt="forecast-icon" />
+                <img src={period.icon} alt="forecast-icon" />
                 <p>Temp: {period.temperature}</p>
             </div>
         {/each}
