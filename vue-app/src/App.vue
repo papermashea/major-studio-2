@@ -2,12 +2,14 @@
   <div>
     <h1>Making decisions based on the weather forecast</h1>
     <h3>Next daytime temperature: {{ firstDaytimePeriod.temperature }}</h3>
-    <BikeRecommender :recommendation="recommendation" />
+    <BikeRecommender :recommendation="bikeRecommendation" />
+    <UmbrellaRecommender :recommendation="umbrellaRecommendation" />
   </div>
 </template>
 
 <script>
 import BikeRecommender from "./components/BikeRecommender.vue";
+import UmbrellaRecommender from "./components/UmbrellaRecommender.vue";
 
 const API_URL = "https://api.weather.gov/gridpoints/OKX/33,37/forecast";
 
@@ -15,6 +17,7 @@ export default {
   name: "App",
   components: {
     BikeRecommender,
+    UmbrellaRecommender,
   },
   data() {
     return {
@@ -32,12 +35,29 @@ export default {
       );
       return daytimePeriod || {};
     },
-    recommendation() {
+    bikeRecommendation() {
       const { temperature } = this.firstDaytimePeriod;
       if (temperature === undefined) {
         return null;
       }
       return temperature >= 45 && temperature < 80;
+    },
+    umbrellaRecommendation() {
+      if (
+        !this.forecast ||
+        !this.forecast.properties ||
+        !this.forecast.properties.periods ||
+        !this.forecast.properties.periods.length
+      ) {
+        return false;
+      }
+      const nextDaytimeForecast = this.forecast.properties.periods.find(
+        (d) => d.isDaytime
+      );
+      if (!nextDaytimeForecast) {
+        return false;
+      }
+      return nextDaytimeForecast.shortForecast.includes("Rain");
     },
   },
   mounted() {
