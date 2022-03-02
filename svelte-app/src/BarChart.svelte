@@ -1,56 +1,91 @@
 <script>
-    import { scaleLinear, scaleBand } from 'd3-scale'
-    import { min, max } from 'd3-array'
+    import * as d3 from 'd3';
+    import { afterUpdate } from 'svelte';
 
 	export let data = [];
     export let height;
     export let width;
+    let days = 7;
     const margin = 20;
 
-    $: yScale = scaleLinear()
+    $: yScale = d3.scaleLinear()
         .domain([Math.min(
             0,
-            min(data, d => d.temperature)
-        ), max(data, d => d.temperature)])
+            d3.min(data, d => d.temperature)
+        ), d3.max(data, d => d.temperature)])
         .range([0, height - margin])
-    $: xScale = scaleBand()
+    $: xScale = d3.scaleBand()
         .padding(0.1)
         .domain(data.map(d => d.name))
         .range([0, width])
 
     $: rectWidth = xScale.bandwidth()
+
+    afterUpdate(() => {
+        d3.select('.bars')
+            .selectAll('g.bar')
+            .data(data.slice(0, days))
+            .join(
+                enter => {
+                    const bar = enter.append('g')
+                        .attr('class', 'bar');
+                    const rect = bar.append('rect')
+                        .attr('width', rectWidth)
+                        .attr('height', 0)
+                        .attr('y', height)
+                        .attr('x', d => xScale(d.name))
+                        .attr('fill', 'lightblue');
+                    rect
+                        .transition()
+                        .delay((_,i) => i * 50)
+                        .attr('y', d => height - yScale(d.temperature))
+                        .attr('height', d => yScale(d.temperature));
+
+                    const nameText = bar.append('text')
+                        .attr('y', height + rectWidth)
+                        .attr('x', d => xScale(d.name))
+                        .attr('transform', d => `rotate(-90 ${xScale(d.name)} ${height})`)
+                        .attr('opacity', 0)
+                        .text(d => d.name);
+                    nameText.transition()
+                        .attr('opacity', 1);
+
+                    const tempText = bar.append('text')
+                        .attr('text-anchor', 'middle')
+                        .attr('x', d => xScale(d.name) + rectWidth / 2)
+                        .attr('y', height)
+                        .text(d => d.temperature);
+                    tempText
+                        .transition()
+                        .delay((_,i) => 100 + i * 50)
+                        .attr('y', d => height - yScale(d.temperature) - 5);
+                },
+                update => update,
+                exit => {
+                    exit.select('rect')
+                        .transition()
+                        .attr('height', 0)
+                        .attr('y', height)
+                        .on('end', () => {
+                            exit.remove()
+                        });
+                    exit.select('text')
+                        .transition()
+                        .attr('opacity', 0);
+                }
+            )
+    })
 </script>
 
 <main>
+    <div>
+        <label for="days-slider">Number of forecasts to show: {days}</label>
+        <input type="range" min="3" max="14" bind:value={days} name="days-slider" id="days">
+    </div>
     <svg height={height} width={width}>
-        {#each data as d}
-            <rect
-                height={yScale(d.temperature)}
-                width={rectWidth}
-                y={height - yScale(d.temperature)}
-                x={xScale(d.name)}
-            ></rect>
-        {/each}
-        {#each data as d}
-            <text
-                y={height + rectWidth}
-                x={xScale(d.name)}
-                transform={`rotate(-90 ${xScale(d.name)} ${height})`}
-            >{d.name}</text>
-            <text
-                class="middle-anchor"
-                y={height - yScale(d.temperature) - 5}
-                x={xScale(d.name) + rectWidth / 2}
-            >{d.temperature}</text>
-        {/each}
+        <g class='bars' />
     </svg>
 </main>
 
 <style>
-    rect {
-        fill: lightblue;
-    }
-    text.middle-anchor {
-        text-anchor: middle;
-    }
 </style>
