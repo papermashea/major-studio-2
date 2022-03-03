@@ -101,7 +101,9 @@ export default {
             .delay((_, i) => 100 + i * 50)
             .attr("y", (d) => this.height - this.yScale(d.temperature) - 5);
         },
-        (update) => update,
+        (update) => {
+          return update.select("rect").attr("fill", "lightgreen");
+        },
         (exit) => {
           exit
             .select("rect")
