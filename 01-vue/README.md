@@ -14,6 +14,7 @@
   Range is what you are mapping it to
 - what is the difference between `scaleBand` and `scaleLinear`?
   scaleBand groups axis, scaleLinear maps it linearally
+- what is the difference between `scaleBand` and `scaleLinear`?
 
 ### Questions to check your understanding
 

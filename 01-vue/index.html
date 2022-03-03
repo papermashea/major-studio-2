@@ -31,9 +31,6 @@
         <button @click="resetGame">New game</button>
       </div>
       <div>
-        <input type="text" v-model="currentGuess" @input="clearBadGuess" />
-        <button @click="addGuess">Add guess</button>
-        <button @click="newGame">New game</button>
         <input type="text" v-model="currentGuess" @input="clearBadGuess" :disabled="didWin"/>
         <button @click="addGuess" :disabled="didWin">Add guess</button>
       </div>
