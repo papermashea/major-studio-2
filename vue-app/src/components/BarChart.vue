@@ -6,7 +6,8 @@
         type="range"
         :min="3"
         :max="14"
-        v-model="days"
+        :value="days"
+        @mouseup="setDays"
         name="days-slider"
         id="days"
       />
@@ -60,6 +61,11 @@ export default {
     },
     rectWidth() {
       return this.xScale.bandwidth();
+    },
+  },
+  methods: {
+    setDays(event) {
+      this.days = +event.target.value;
     },
   },
   updated() {
