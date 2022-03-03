@@ -11,7 +11,9 @@
 
 ### Questions to check your understanding
 
-- When does `xScale` get recomputed? What about `yScale`?
+- Under what conditions does `xScale` get recomputed? What about `yScale`?
+- Why do we need to pass the function `(update) => update` to the `.join` method if it doesn't change anything?
+- Which HTML and SVG elements are rendered by the framework (Vue/Svelte) and which ones by d3?
 - Given how similar the d3 code is in `BarChart.svelte` and `BarChart.vue`, how might you imagine reusing this code in order to make reusable code for multiple frameworks? (And why might you want to do that?)
 
 ### Features to try implementing
