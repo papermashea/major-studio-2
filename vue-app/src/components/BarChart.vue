@@ -14,6 +14,7 @@
     <svg :height="height" :width="width">
       <g class="bars" />
     </svg>
+    <div>{{ shortForecast }}</div>
   </div>
 </template>
 
@@ -22,11 +23,14 @@ import * as d3 from "d3";
 
 const margin = 20;
 
+const DEFAULT_FORECAST = "Hover for Forecast";
+
 export default {
   name: "BarChart",
   data() {
     return {
       days: 7,
+      shortForecast: DEFAULT_FORECAST,
     };
   },
   props: {
@@ -59,6 +63,7 @@ export default {
     },
   },
   updated() {
+    const that = this;
     d3.select(".bars")
       .selectAll("g.bar")
       .data((this.data || []).slice(0, this.days))
@@ -100,6 +105,8 @@ export default {
             .transition()
             .delay((_, i) => 100 + i * 50)
             .attr("y", (d) => this.height - this.yScale(d.temperature) - 5);
+
+          return bar;
         },
         (update) => {
           return update.select("rect").attr("fill", "lightgreen");
@@ -115,7 +122,13 @@ export default {
             });
           exit.select("text").transition().attr("opacity", 0);
         }
-      );
+      )
+      .on("mouseenter", (event, d) => {
+        that.shortForecast = d.shortForecast;
+      })
+      .on("mouseleave", () => {
+        that.shortForecast = DEFAULT_FORECAST;
+      });
   },
 };
 </script>
