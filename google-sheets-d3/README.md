@@ -31,3 +31,9 @@ docs.google.com/spreadsheets/d/abcd1234/edit#gid=0
 ```
 script.google.com/a/macros/newschool.edu/s/wxyz9876/dev
 ```
+
+### Demo
+
+If you make a copy of [this Google Sheet](https://docs.google.com/spreadsheets/d/10HYjH0LCrsG5KGkgrlqoUvn9OzIfn_ZPDxM_zWftpog/edit?usp=sharing) containing reviews of chocolate bars from [Flavors of Cacao](http://flavorsofcacao.com/chocolate_database.html), and follow the instructions above, you should be able to see a rudimentary SVG scatterplot drawn with D3 in your app.
+
+   <img src="./screenshots/demo.png" width="250px" />
