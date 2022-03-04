@@ -59,6 +59,8 @@
                         .transition()
                         .delay((_,i) => 100 + i * 50)
                         .attr('y', d => height - yScale(d.temperature) - 5);
+                        
+                    return bar;
                 },
                 update => update,
                 exit => {
