@@ -12,10 +12,10 @@
         id="days"
       />
     </div>
+    <div>{{ shortForecast }}</div>
     <svg :height="height" :width="width">
       <g class="bars" />
     </svg>
-    <div>{{ shortForecast }}</div>
   </div>
 </template>
 
@@ -115,7 +115,8 @@ export default {
           return bar;
         },
         (update) => {
-          return update.select("rect").attr("fill", "lightgreen");
+          update.select("rect").attr("fill", "lightgreen");
+          return update;
         },
         (exit) => {
           exit
