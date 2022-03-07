@@ -40,6 +40,17 @@
         padding: 5px;
         margin: 5px;
     }
+
+    @media (max-width: 800px) {
+        .period {
+            width: 100px;
+            height: 100px;
+        }
+        .period img {
+            display: none;
+        }
+    }
+
     .hot {
         background-color: red;
     }

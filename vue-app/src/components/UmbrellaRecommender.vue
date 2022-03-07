@@ -31,8 +31,8 @@ export default {
   border-radius: 4px;
   opacity: 0.8;
   background-color: lightgray;
-  width: 50%;
-  margin: 0 auto;
+  width: 300px;
+  margin: 10px;
   padding: 50px;
   font-weight: bold;
   font-size: 24px;
