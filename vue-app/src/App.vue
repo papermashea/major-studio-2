@@ -2,8 +2,10 @@
   <div>
     <h1>Making decisions based on the weather forecast</h1>
     <h3>Next daytime temperature: {{ firstDaytimePeriod.temperature }}</h3>
-    <BikeRecommender :recommendation="bikeRecommendation" />
-    <UmbrellaRecommender :recommendation="umbrellaRecommendation" />
+    <div class="recommendation-group">
+      <BikeRecommender :recommendation="bikeRecommendation" />
+      <UmbrellaRecommender :recommendation="umbrellaRecommendation" />
+    </div>
     <BarChart :data="periods" :height="400" :width="600" />
   </div>
 </template>
@@ -87,5 +89,18 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.recommendation-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+@media (max-width: 800px) {
+  .recommendation-group {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 </style>
