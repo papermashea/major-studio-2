@@ -15,13 +15,12 @@ const App = {
       guesses: [],
       currentGuess: "",
       tileDimension: 50,
-      badGuess: {
-        show: false,
+      badGuess:
+        show: false
         reason: ''
       },
       didWin: false
     };
-  },
   methods: {
     addGuess() {
       const newGuess = this.currentGuess.toUpperCase();

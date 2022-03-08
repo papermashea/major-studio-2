@@ -1,4 +1,11 @@
 <script>
+<<<<<<< HEAD
+	export let name;
+</script>
+
+<main>
+	<h1>Hello {name}!</h1>
+	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
 	import { onMount } from 'svelte';
 	import BarChart from './BarChart.svelte'
 	import Forecast from './Forecast.svelte'
@@ -19,6 +26,7 @@
 
 <main>
 	<h4>This week's temperature chart</h4>
+	<BarChart data={forecast.properties.periods} height={400} width={600} />
 	<div class='app-body'>
 		<Forecast periods={forecast.properties.periods} />
 		<BarChart data={forecast.properties.periods} height={400} width={600} />
@@ -31,6 +39,20 @@
 		padding: 1em;
 	}
 
+	h1 {
+		color: #ff3e00;
+		text-transform: uppercase;
+		font-size: 4em;
+		font-weight: 100;
+	}
+
+	@media (min-width: 640px) {
+		main {
+			max-width: none;
+		}
+	}
+
+</style>
 	.app-body {
 		display: grid;
 		grid-template: 1fr / 1fr 1fr;
@@ -41,5 +63,3 @@
             grid-template: 1fr 1fr / 1fr;
         }
     }
-
-</style>

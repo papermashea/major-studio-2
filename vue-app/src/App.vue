@@ -30,6 +30,17 @@ export default {
     };
   },
   computed: {
+    firstDaytimePeriod() {
+      if (!this.forecast) {
+        return {};
+      }
+      console.log(this.forecast);
+      const daytimePeriod = this.forecast.properties.periods.find(
+        (d) => d.isDaytime
+      );
+      return daytimePeriod || {};
+    },
+    recommendation() {
     periods() {
       if (!this.forecast || !this.forecast.properties) {
         return [];
