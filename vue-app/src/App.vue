@@ -14,9 +14,7 @@
 import BikeRecommender from "./components/BikeRecommender.vue";
 import UmbrellaRecommender from "./components/UmbrellaRecommender.vue";
 import BarChart from "./components/BarChart.vue";
-
 const API_URL = "https://api.weather.gov/gridpoints/OKX/33,37/forecast";
-
 export default {
   name: "App",
   components: {
@@ -30,17 +28,6 @@ export default {
     };
   },
   computed: {
-    firstDaytimePeriod() {
-      if (!this.forecast) {
-        return {};
-      }
-      console.log(this.forecast);
-      const daytimePeriod = this.forecast.properties.periods.find(
-        (d) => d.isDaytime
-      );
-      return daytimePeriod || {};
-    },
-    recommendation() {
     periods() {
       if (!this.forecast || !this.forecast.properties) {
         return [];
@@ -90,13 +77,11 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-
 .recommendation-group {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
-
 @media (max-width: 800px) {
   .recommendation-group {
     flex-direction: column;

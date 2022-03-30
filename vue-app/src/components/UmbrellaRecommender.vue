@@ -1,12 +1,12 @@
 <template>
-  <div
-    class="card"
-    :class="{
-      shouldCarry: recommendation === true,
+  <el-card
+    shadow="always"
+    :body-style="{
+      backgroundColor: recommendation ? 'lightblue' : 'lightgray',
     }"
   >
     {{ recommendationText }}
-  </div>
+  </el-card>
 </template>
 
 <script>
@@ -25,19 +25,4 @@ export default {
 };
 </script>
 
-<style>
-.card {
-  border: 1px solid black;
-  border-radius: 4px;
-  opacity: 0.8;
-  background-color: lightgray;
-  width: 300px;
-  margin: 10px;
-  padding: 50px;
-  font-weight: bold;
-  font-size: 24px;
-}
-.shouldCarry {
-  background-color: lightblue;
-}
-</style>
+<style></style>
