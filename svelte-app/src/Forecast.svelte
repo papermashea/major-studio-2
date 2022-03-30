@@ -1,21 +1,23 @@
 <script>
+    import Card, {Media, MediaContent, Content} from '@smui/card';
+    import '../node_modules/@smui/card/bare.css';
 	export let periods
 
-    function getTempClass(temp) {
+    function getTempColor(temp) {
         if (temp > 80){
-            return 'hot'
+            return 'red'
         }
         if (temp > 65) {
-            return 'warm'
+            return 'pink'
         }
         if (temp > 50){
-            return 'cool'
+            return 'lightseagreen'
         }
         if (temp >= 32) {
-            return 'cold'
+            return 'lightblue'
         }
         if (temp < 32) {
-            return 'freezing'
+            return 'blue'
         }
     }
 </script>
@@ -23,48 +25,34 @@
 <main>
 	<div class="flex">
         {#each periods as period}
-            <div class={"period " + getTempClass(period.temperature)}>
-                <h5>{period.name}</h5>
-                <img src={period.icon} alt="forecast-icon" />
-                <p>Temp: {period.temperature}</p>
-            </div>
+        <div class="card-container">
+            <Card class="card-media-16x9" style="background-color: {getTempColor(period.temperature)}">
+                <Content>
+                    <div style="width: 80px; font-size: 10px;">{period.name}</div>
+                </Content>
+                <Media aspectRatio="square" class="card-media">
+                    <MediaContent>
+                        <img src={period.icon} alt="forecast-icon" />
+                    </MediaContent>
+                </Media>
+                <Content>
+                    <div>{period.temperature}</div>
+                </Content>
+            </Card>
+        </div>
         {/each}
     </div>
 </main>
 
 <style>
-    .period {
-        height: 200px;
-        width: 150px;
-        border: 1px solid gray;
-        padding: 5px;
-        margin: 5px;
+    .card-container {
+        margin: 10px;
     }
 
     @media (max-width: 800px) {
-        .period {
-            width: 100px;
-            height: 100px;
-        }
-        .period img {
+        .mdc-card .img {
             display: none;
         }
-    }
-
-    .hot {
-        background-color: red;
-    }
-    .warm {
-        background-color: pink;
-    }
-    .cool {
-        background-color: lightseagreen;
-    }
-    .cold {
-        background-color: lightblue;
-    }
-    .freezing {
-        background-color: blue;
     }
     .flex {
         display: flex;

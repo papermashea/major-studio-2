@@ -1,16 +1,8 @@
 <template>
   <div>
-    <div>
-      <label for="days-slider">Number of forecasts to show: {{ days }}</label>
-      <input
-        type="range"
-        :min="3"
-        :max="14"
-        :value="days"
-        @mouseup="setDays"
-        name="days-slider"
-        id="days"
-      />
+    <div class="slider">
+      <label for="days-slider">Number of forecasts to show:</label>
+      <el-slider :min="3" :max="14" v-model="days" show-input show-stops />
     </div>
     <div>{{ shortForecast }}</div>
     <svg :height="height" :width="width">
@@ -61,11 +53,6 @@ export default {
     },
     rectWidth() {
       return this.xScale.bandwidth();
-    },
-  },
-  methods: {
-    setDays(event) {
-      this.days = +event.target.value;
     },
   },
   updated() {
@@ -140,4 +127,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.slider {
+  max-width: 50%;
+  margin: 0 auto;
+}
+</style>

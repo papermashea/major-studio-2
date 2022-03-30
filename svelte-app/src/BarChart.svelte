@@ -1,6 +1,8 @@
 <script>
     import * as d3 from 'd3';
     import { afterUpdate } from 'svelte';
+    import Slider from '@smui/slider';
+    import '../node_modules/@smui/slider/bare.css';
 
 	export let data = [];
     export let height;
@@ -96,15 +98,14 @@
 <main>
     <div>
         <label for="days-slider">Number of forecasts to show: {days}</label>
-        <input
-            type="range"
-            min="3"
-            max="14"
-            value={days}
-            on:mouseup={event => days = +event.target.value}
-            name="days-slider"
-            id="days"
-        >
+        <Slider
+            bind:value={days}
+            min={3}
+            max={14}
+            step={1}
+            discrete
+            tickMarks
+        />
     </div>
     <div>{shortForecast}</div>
     <svg height={height} width={width}>
