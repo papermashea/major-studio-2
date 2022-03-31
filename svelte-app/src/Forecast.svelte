@@ -1,8 +1,7 @@
 <script>
     import Card, {Media, MediaContent, Content} from '@smui/card';
     import Chip, { Set, Text } from '@smui/chips';
-    import '../node_modules/@smui/card/bare.css';
-    import '../node_modules/@smui/chips/bare.css';
+  
 	export let periods
 
     let allChips = ['Rain', 'Cloudy', 'Sunny', 'Thunderstorms'];
@@ -66,6 +65,9 @@
 </main>
 
 <style>
+    @import '../node_modules/@smui/card/bare.css';
+    @import '../node_modules/@smui/chips/bare.css';
+
     .card-container {
         margin: 10px;
     }
