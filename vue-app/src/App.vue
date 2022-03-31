@@ -2,9 +2,27 @@
   <div>
     <h1>Making decisions based on the weather forecast</h1>
     <h3>Next daytime temperature: {{ firstDaytimePeriod.temperature }}</h3>
+
     <div class="recommendation-group">
-      <BikeRecommender :recommendation="bikeRecommendation" />
-      <UmbrellaRecommender :recommendation="umbrellaRecommendation" />
+      <div>
+        <el-slider v-model="bikeTempRange" range :min="20" :max="90" />
+        <BikeRecommender :recommendation="bikeRecommendation" />
+      </div>
+      <div>
+        <el-select
+          v-model="selectedUmbrellaOption"
+          class="m-2"
+          placeholder="Select"
+        >
+          <el-option
+            v-for="item in umbrellaOptions"
+            :key="item"
+            :label="item"
+            :value="item"
+          />
+        </el-select>
+        <UmbrellaRecommender :recommendation="umbrellaRecommendation" />
+      </div>
     </div>
     <BarChart :data="periods" :height="400" :width="600" />
   </div>
@@ -27,6 +45,9 @@ export default {
   data() {
     return {
       forecast: null,
+      umbrellaOptions: ["Rain", "Showers", "Thunderstorms"],
+      selectedUmbrellaOption: "Rain",
+      bikeTempRange: [45, 80],
     };
   },
   computed: {
@@ -45,7 +66,10 @@ export default {
       if (temperature === undefined) {
         return null;
       }
-      return temperature >= 45 && temperature < 80;
+      return (
+        temperature >= this.bikeTempRange[0] &&
+        temperature < this.bikeTempRange[1]
+      );
     },
     umbrellaRecommendation() {
       if (!this.periods.length) {
@@ -57,7 +81,9 @@ export default {
       if (!nextDaytimeForecast) {
         return false;
       }
-      return nextDaytimeForecast.shortForecast.includes("Rain");
+      return nextDaytimeForecast.shortForecast.includes(
+        this.selectedUmbrellaOption
+      );
     },
   },
   mounted() {
