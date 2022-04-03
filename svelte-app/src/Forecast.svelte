@@ -51,7 +51,7 @@
                 <Content>
                     <div style="width: 80px; font-size: 10px;">{period.name}</div>
                 </Content>
-                <Media aspectRatio="square" class="card-media">
+                <Media class="card-media" aspectRatio="square" >
                     <MediaContent>
                         <img src={period.icon} alt="forecast-icon" />
                     </MediaContent>
@@ -71,7 +71,7 @@
     }
 
     @media (max-width: 800px) {
-        .card-container img {
+        :global(.card-media) {
             display: none;
         }
     }
