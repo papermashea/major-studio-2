@@ -130,4 +130,8 @@ export default {
     align-items: center;
   }
 }
+
+.card {
+  width: 300px;
+}
 </style>

@@ -1,5 +1,6 @@
 <template>
   <el-card
+    class="card"
     shadow="always"
     :body-style="{
       backgroundColor: recommendation ? 'lightblue' : 'lightgray',
@@ -19,7 +20,7 @@ export default {
     recommendationText() {
       return this.recommendation === true
         ? "☂️ Better carry an umbrella ☂️"
-        : "No guarantees, but you should be OK without an umbrella";
+        : "🤞 No umbrella needed 🤞";
     },
   },
 };
