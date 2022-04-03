@@ -6,7 +6,7 @@
       <BikeRecommender :recommendation="bikeRecommendation" />
       <UmbrellaRecommender :recommendation="umbrellaRecommendation" />
     </div>
-    <BarChart :data="periods" :height="400" :width="600" />
+    <BarChart :data="periods" :height="400" :width="width" />
   </div>
 </template>
 
@@ -16,6 +16,7 @@ import UmbrellaRecommender from "./components/UmbrellaRecommender.vue";
 import BarChart from "./components/BarChart.vue";
 
 const API_URL = "https://api.weather.gov/gridpoints/OKX/33,37/forecast";
+const MAX_SVG_WIDTH = 600;
 
 export default {
   name: "App",
@@ -27,6 +28,7 @@ export default {
   data() {
     return {
       forecast: null,
+      width: MAX_SVG_WIDTH,
     };
   },
   computed: {
@@ -60,12 +62,22 @@ export default {
       return nextDaytimeForecast.shortForecast.includes("Rain");
     },
   },
+  methods: {
+    onResize() {
+      this.width = Math.min(MAX_SVG_WIDTH, window.innerWidth);
+    },
+  },
   mounted() {
     fetch(API_URL)
       .then((res) => res.json())
       .then((data) => {
         this.forecast = data;
       });
+
+    window.addEventListener("resize", this.onResize);
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.onResize);
   },
 };
 </script>
@@ -86,7 +98,7 @@ export default {
   justify-content: space-around;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
   .recommendation-group {
     flex-direction: column;
     align-items: center;

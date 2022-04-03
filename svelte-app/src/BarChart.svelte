@@ -45,6 +45,7 @@
 
                     const nameText = bar
                         .append('text')
+                        .attr('class', 'name-text')
                         .attr('y', height + rectWidth)
                         .attr('x', (d) => xScale(d.name))
                         .attr(
@@ -57,6 +58,7 @@
 
                     const tempText = bar
                         .append('text')
+                        .attr('class', 'temp-text')
                         .attr('text-anchor', 'middle')
                         .attr('x', (d) => xScale(d.name) + rectWidth / 2)
                         .attr('y', height)
@@ -69,7 +71,22 @@
                     return bar;
                 },
                 (update) => {
-                    update.select('rect').attr('fill', 'lightgreen');
+                    update
+                        .select('rect')
+                        .attr('fill', 'lightgreen')
+                        .attr('width', rectWidth)
+                        .attr('x', (d) => xScale(d.name));
+                    update
+                        .select('.name-text')
+                        .attr('y', height + rectWidth)
+                        .attr('x', (d) => xScale(d.name))
+                        .attr(
+                            'transform',
+                            (d) => `rotate(-90 ${xScale(d.name)} ${height})`
+                        );
+                    update
+                        .select('.temp-text')
+                        .attr('x', (d) => xScale(d.name) + rectWidth / 2);
                     return update;
                 },
                 (exit) => {
@@ -113,4 +130,7 @@
 </main>
 
 <style>
+input[type="range"]::-webkit-slider-thumb {
+  cursor: ew-resize; /* grab */
+}
 </style>

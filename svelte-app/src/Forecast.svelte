@@ -41,7 +41,7 @@
         margin: 5px;
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 768px) {
         .period {
             width: 100px;
             height: 100px;
