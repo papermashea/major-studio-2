@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@smui/card": "^6.0.0-beta.15",
+    "@smui/chips": "^6.0.0-beta.15",
     "@smui/slider": "^6.0.0-beta.15",
     "d3": "^7.3.0",
     "d3-array": "^3.1.1",
