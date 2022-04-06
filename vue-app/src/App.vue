@@ -3,6 +3,14 @@
     <h1>Making decisions based on the weather forecast</h1>
     <h3>Next daytime temperature: {{ firstDaytimePeriod.temperature }}</h3>
     <div class="recommendation-group">
+        <el-select v-model="value" clearable placeholder="Select">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       <BikeRecommender :recommendation="bikeRecommendation" />
       <UmbrellaRecommender :recommendation="umbrellaRecommendation" />
     </div>
@@ -11,10 +19,28 @@
 </template>
 
 <script>
+import Components from 'unplugin-vue-components/vite'
 import BikeRecommender from "./components/BikeRecommender.vue";
 import UmbrellaRecommender from "./components/UmbrellaRecommender.vue";
 import BarChart from "./components/BarChart.vue";
 const API_URL = "https://api.weather.gov/gridpoints/OKX/33,37/forecast";
+
+
+const options = [
+  {
+    value: 'Rain',
+    label: 'Rain',
+  },
+  {
+    value: 'Snow',
+    label: 'Snow',
+  }
+  {
+    value: 'Snow',
+    label: 'Snow',
+  }
+]
+
 export default {
   name: "App",
   components: {
@@ -55,7 +81,7 @@ export default {
       if (!nextDaytimeForecast) {
         return false;
       }
-      return nextDaytimeForecast.shortForecast.includes("Rain");
+      return nextDaytimeForecast.shortForecast.includes("");
     },
   },
   mounted() {
@@ -76,6 +102,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  background-color: rgba(0,0,255,.1);
+  padding: 1%;
 }
 .recommendation-group {
   display: flex;
