@@ -2,7 +2,7 @@
   <div>
     <h1>Making decisions based on the weather forecast</h1>
     <h3>Next daytime temperature: {{ firstDaytimePeriod.temperature }}</h3>
-  </div>
+
     <div class="recommendation-group">
       <div>
         <el-slider v-model="bikeTempRange" range :min="20" :max="90" />
@@ -22,25 +22,22 @@
           />
         </el-select>
         <UmbrellaRecommender :recommendation="umbrellaRecommendation" />
+      </div>
     </div>
     <BarChart :data="periods" :height="400" :width="width" />
-    <router-link class="margin-x" to="/">Home</router-link>
-    <router-link class="margin-x" to="/methodology">Methodology</router-link>
-    <router-view></router-view>
   </div>
 </template>
 
 <script>
-<<<<<<< HEAD
-import BikeRecommender from "./components/BikeRecommender.vue";
-import UmbrellaRecommender from "./components/UmbrellaRecommender.vue";
-import BarChart from "./components/BarChart.vue";
+import BikeRecommender from "./BikeRecommender.vue";
+import UmbrellaRecommender from "./UmbrellaRecommender.vue";
+import BarChart from "./BarChart.vue";
+
 const API_URL = "https://api.weather.gov/gridpoints/OKX/33,37/forecast";
 const MAX_SVG_WIDTH = 600;
 
-
 export default {
-  name: "App",
+  name: "Home",
   components: {
     BikeRecommender,
     UmbrellaRecommender,
@@ -94,7 +91,6 @@ export default {
   methods: {
     onResize() {
       this.width = Math.min(MAX_SVG_WIDTH, window.innerWidth);
-      console.log(this.width)
     },
   },
   mounted() {
@@ -109,15 +105,10 @@ export default {
   beforeUnmount() {
     window.removeEventListener("resize", this.onResize);
   },
-=======
-export default {
-  name: "App",
->>>>>>> bad5687d08a71e4482dc3d950ec95d9b2b8068d9
 };
 </script>
 
 <style>
-<<<<<<< HEAD
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -125,9 +116,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-  background-color: rgba(0,0,255,.1);
-  padding: 1%;
 }
+
 .recommendation-group {
   display: flex;
   flex-direction: row;
@@ -143,9 +133,5 @@ export default {
 
 .card {
   width: 300px;
-=======
-.margin-x {
-  margin: 0px 5px;
->>>>>>> bad5687d08a71e4482dc3d950ec95d9b2b8068d9
 }
 </style>
