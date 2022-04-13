@@ -2,18 +2,8 @@
   <div>
     <h1>Making decisions based on the weather forecast</h1>
     <h3>Next daytime temperature: {{ firstDaytimePeriod.temperature }}</h3>
-
+  </div>
     <div class="recommendation-group">
-        <el-select v-model="value" clearable placeholder="Select">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      <BikeRecommender :recommendation="bikeRecommendation" />
-      <UmbrellaRecommender :recommendation="umbrellaRecommendation" />
       <div>
         <el-slider v-model="bikeTempRange" range :min="20" :max="90" />
         <BikeRecommender :recommendation="bikeRecommendation" />
@@ -38,28 +28,12 @@
 </template>
 
 <script>
-import Components from 'unplugin-vue-components/vite'
 import BikeRecommender from "./components/BikeRecommender.vue";
 import UmbrellaRecommender from "./components/UmbrellaRecommender.vue";
 import BarChart from "./components/BarChart.vue";
 const API_URL = "https://api.weather.gov/gridpoints/OKX/33,37/forecast";
 const MAX_SVG_WIDTH = 600;
 
-
-const options = [
-  {
-    value: 'Rain',
-    label: 'Rain',
-  },
-  {
-    value: 'Snow',
-    label: 'Snow',
-  }
-  {
-    value: 'Snow',
-    label: 'Snow',
-  }
-]
 
 export default {
   name: "App",
@@ -116,6 +90,7 @@ export default {
   methods: {
     onResize() {
       this.width = Math.min(MAX_SVG_WIDTH, window.innerWidth);
+      console.log(this.width)
     },
   },
   mounted() {
@@ -149,7 +124,6 @@ export default {
   flex-direction: row;
   justify-content: space-around;
 }
-@media (max-width: 800px) {
 
 @media (max-width: 768px) {
   .recommendation-group {
@@ -157,7 +131,6 @@ export default {
     align-items: center;
   }
 }
-</style>
 
 .card {
   width: 300px;
