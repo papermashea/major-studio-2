@@ -1,4 +1,5 @@
 <script>
+	import { Router, Link, Route } from "svelte-routing";
 	import { onMount, onDestroy } from 'svelte';
 	import BarChart from './BarChart.svelte'
 	import Forecast from './Forecast.svelte'
@@ -13,6 +14,7 @@
 	};
 
 	let width = MAX_SVG_WIDTH;
+	let url = "/forecast"
 
 	const onResize = () => {
 		width = Math.min(MAX_SVG_WIDTH, window.innerWidth);
@@ -29,11 +31,21 @@
 </script>
 
 <main>
-	<h4>This week's temperature chart</h4>
-	<div class='app-body'>
-		<Forecast periods={forecast.properties.periods} />
-		<BarChart data={forecast.properties.periods} height={400} width={width} />
-	</div>
+	<Router url="{url}">
+		<nav>
+			<Link to="/cards">Forecast Cards</Link>
+			<Link to="/bars">Bar Chart</Link>
+		</nav>
+		<h4>This week's temperature chart</h4>
+		<div class='app-body'>
+			<Route path="cards">
+				<Forecast periods={forecast.properties.periods} />
+			</Route>
+			<Route path="bars">
+				<BarChart data={forecast.properties.periods} height={400} width={width} />
+			</Route>
+		</div>
+	</Router>
 </main>
 
 <style>
