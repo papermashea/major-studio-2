@@ -1,40 +1,11 @@
 <template>
-  <div>
-    <h1>Making decisions based on the weather forecast</h1>
-    <h3>Next daytime temperature: {{ firstDaytimePeriod.temperature }}</h3>
-  </div>
-    <div class="recommendation-group">
-      <div>
-        <el-slider v-model="bikeTempRange" range :min="20" :max="90" />
-        <BikeRecommender :recommendation="bikeRecommendation" />
-      </div>
-      <div>
-        <el-select
-          v-model="selectedUmbrellaOption"
-          class="m-2"
-          placeholder="Select"
-        >
-          <el-option
-            v-for="item in umbrellaOptions"
-            :key="item"
-            :label="item"
-            :value="item"
-          />
-        </el-select>
-        <UmbrellaRecommender :recommendation="umbrellaRecommendation" />
-    </div>
-    <BarChart :data="periods" :height="400" :width="width" />
     <router-link class="margin-x" to="/">Home</router-link>
     <router-link class="margin-x" to="/methodology">Methodology</router-link>
+    <router-link class="margin-x" to="/chart">Chart</router-link>
     <router-view></router-view>
-  </div>
 </template>
 
 <script>
-<<<<<<< HEAD
-import BikeRecommender from "./components/BikeRecommender.vue";
-import UmbrellaRecommender from "./components/UmbrellaRecommender.vue";
-import BarChart from "./components/BarChart.vue";
 const API_URL = "https://api.weather.gov/gridpoints/OKX/33,37/forecast";
 const MAX_SVG_WIDTH = 600;
 
@@ -42,54 +13,6 @@ const MAX_SVG_WIDTH = 600;
 export default {
   name: "App",
   components: {
-    BikeRecommender,
-    UmbrellaRecommender,
-    BarChart,
-  },
-  data() {
-    return {
-      forecast: null,
-      umbrellaOptions: ["Rain", "Showers", "Thunderstorms"],
-      selectedUmbrellaOption: "Rain",
-      bikeTempRange: [45, 80],
-      width: MAX_SVG_WIDTH,
-    };
-  },
-  computed: {
-    periods() {
-      if (!this.forecast || !this.forecast.properties) {
-        return [];
-      }
-      return this.forecast.properties.periods;
-    },
-    firstDaytimePeriod() {
-      const daytimePeriod = this.periods.find((d) => d.isDaytime);
-      return daytimePeriod || {};
-    },
-    bikeRecommendation() {
-      const { temperature } = this.firstDaytimePeriod;
-      if (temperature === undefined) {
-        return null;
-      }
-      return (
-        temperature >= this.bikeTempRange[0] &&
-        temperature < this.bikeTempRange[1]
-      );
-    },
-    umbrellaRecommendation() {
-      if (!this.periods.length) {
-        return false;
-      }
-      const nextDaytimeForecast = this.forecast.properties.periods.find(
-        (d) => d.isDaytime
-      );
-      if (!nextDaytimeForecast) {
-        return false;
-      }
-      return nextDaytimeForecast.shortForecast.includes(
-        this.selectedUmbrellaOption
-      );
-    },
   },
   methods: {
     onResize() {
@@ -109,15 +32,10 @@ export default {
   beforeUnmount() {
     window.removeEventListener("resize", this.onResize);
   },
-=======
-export default {
-  name: "App",
->>>>>>> bad5687d08a71e4482dc3d950ec95d9b2b8068d9
 };
 </script>
 
 <style>
-<<<<<<< HEAD
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -143,9 +61,16 @@ export default {
 
 .card {
   width: 300px;
-=======
+}
+
 .margin-x {
   margin: 0px 5px;
->>>>>>> bad5687d08a71e4482dc3d950ec95d9b2b8068d9
+  text-decoration: none;
 }
+
+.margin-x:hover {
+      text-decoration: underline;
+      color: red;
+    }
+
 </style>

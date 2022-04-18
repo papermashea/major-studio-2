@@ -5,7 +5,6 @@
 
     <div class="recommendation-group">
       <div>
-        <el-slider v-model="bikeTempRange" range :min="20" :max="90" />
         <BikeRecommender :recommendation="bikeRecommendation" />
       </div>
       <div>
