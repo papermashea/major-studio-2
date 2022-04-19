@@ -6,7 +6,9 @@
 
 **Deploy to GitHub pages by building locally and pushing to the `gh-pages` branch**
 
-1. Change your repo's settings to deploy to GitHub pages:
+1. If it doesn't already exist, create a `gh-pages` branch. Then change your repo's settings to deploy to GitHub pages:
+
+<img src='./create-branch.png' width="600px">
 
 <img src='./gh-pages.png' width="600px"/>
 
